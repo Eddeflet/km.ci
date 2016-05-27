@@ -89,6 +89,10 @@ function(survi,tl=NA,tu=NA, method="linear", conf.lev=0.95)
     {
        up.low.list <- confi.fun(devia$log.dev,dat.mat[,2],method)
     }
+    if(method=="arcsin")
+    {
+      up.low.list <- confi.fun(devia$arcsin.dev,dat.mat[,2],method)
+    }
 
     # Finally, modify the survfit object with the new boundaries
     survi$lower <- up.low.list$lower

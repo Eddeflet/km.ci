@@ -9,6 +9,7 @@ function(matrix,k,n)
     sigma <- matrix[,3]
     result1 <- k*(1+n*sigma)*kap.mei/sqrt(n)
     result2 <- exp(k*(1+n*sigma)/(sqrt(n)*log(kap.mei)))
-    return(list(lin.dev=result1,log.dev=result2))
+    result3 <- 0.5*k*(1+n*sigma)*sqrt(kap.mei/(1-kap.mei))/sqrt(n)
+    return(list(lin.dev=result1,log.dev=result2,arcsin.dev=result3))
 }
 
