@@ -11,7 +11,7 @@ function(survi,conf.level=0.95, tl=NA, tu=NA, alpha=0.05, method="rothman")
     if (data.class(survi)!="survfit")
             stop("Survi must be a survival object")
     method <- match.arg(method,c( "peto", "linear", "log" ,"loglog", "rothman","grunkemeier",
-                                "epband", "logep", "hall-wellner","loghall", "arcsinep", "arcsinhall"))
+                "epband", "logep", "hall-wellner","loghall"))
 
     if(method=="grunkemeier")
     {
@@ -67,11 +67,6 @@ function(survi,conf.level=0.95, tl=NA, tu=NA, alpha=0.05, method="rothman")
         result <- hall.wellner.fun(survi,tl=tl, tu=tu, method="log", conf.lev=conf.level)
         result$conf.type <- "Log(Hall-Wellner)"
     }
-    if(method=="arcsinhall")
-    {
-      result <- hall.wellner.fun(survi,tl=tl, tu=tu, method="arcsin", conf.lev=conf.level)
-      result$conf.type <- "Arcsin(Hall-Wellner)"
-    }
 
     if(method=="epband")
     {
@@ -83,12 +78,6 @@ function(survi,conf.level=0.95, tl=NA, tu=NA, alpha=0.05, method="rothman")
         result <- epband.fun(survi, tl=tl, tu=tu, alpha=alpha, method="log",conf.lev=conf.level)
         result$conf.type <- "Log(Equal Precision)"
     }
-    if(method=="arcsinep")
-    {
-      result <- epband.fun(survi, tl=tl, tu=tu, method="arcsin",conf.lev=conf.level)
-      result$conf.type <- "Arcsin(Equal Precision)"
-    }
-    
     return(result)
 }
 
