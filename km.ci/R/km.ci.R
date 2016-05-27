@@ -1,5 +1,5 @@
 "km.ci" <-
-function(survi,conf.level=0.95, tl=NA, tu=NA, method="rothman")
+function(survi,conf.level=0.95, tl=NA, tu=NA, alpha=0.05, method="rothman")
 {
     # This function can compute the most desirable confidence bands.
     # The method "log" is implemented as "log" in R survfit.
@@ -70,12 +70,12 @@ function(survi,conf.level=0.95, tl=NA, tu=NA, method="rothman")
 
     if(method=="epband")
     {
-        result <- epband.fun(survi, tl=tl, tu=tu, conf.lev=conf.level)
+        result <- epband.fun(survi, tl=tl, tu=tu, alpha=alpha, conf.lev=conf.level)
         result$conf.type <- "Equal Precision"
     }
     if(method=="logep")
     {
-        result <- epband.fun(survi, tl=tl, tu=tu, method="log",conf.lev=conf.level)
+        result <- epband.fun(survi, tl=tl, tu=tu, alpha=alpha, method="log",conf.lev=conf.level)
         result$conf.type <- "Log(Equal Precision)"
     }
     return(result)
