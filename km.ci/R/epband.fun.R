@@ -20,8 +20,21 @@ function(survi, tl=NA,tu=NA, method="linear",conf.lev=0.95)
     # if no tl,tu is given the band covers the whole curve
     if(is.na(tl)&is.na(tu))
     {
-        tl <- min(survi$time[survi$n.event>0])
-        tu <- max(survi$time[survi$n.event>0 &survi$n.risk>survi$n.event])
+      ##Proposed fix for interval selection
+      n <- survi$n
+      time <- survi$time
+      kap.mei <- survi$surv
+      n.risk <- survi$n.risk
+      n.event <- survi$n.event
+      a <- n.event/(n.risk*(n.risk-n.event))
+      a <- cumsum(a)
+      var.st <- kap.mei^2*a    
+      sigma <- var.st/kap.mei^2
+      K <- n*sigma/(1+n*sigma)
+      
+      beta <- min(1-alpha,max(K[n.event>0 &n.risk>n.event]))
+      tl <- time[min(which(K >= alpha))]
+      tu <- time[max(which(K <= beta))]
     }
     n <- survi$n
     aa <- a.up.low.fun(survi,tl,tu)
