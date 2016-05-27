@@ -1,5 +1,5 @@
 "epband.fun" <-
-function(survi, tl=NA,tu=NA, method="linear",conf.lev=0.95)
+function(survi, tl=NA,tu=NA,alpha=0.05, method="linear",conf.lev=0.95)
 {
     # This function takes a survfit object and modifies it, such that
     # its lower and upper boundaries are now computed using the
